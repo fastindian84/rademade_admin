@@ -9,7 +9,7 @@ module RademadeAdmin
         def initialize(name, uploader)
           @name, @uploader = name, uploader
         end
-        
+
         def remove_proc
           method_name = :"remove_#{name}="
           Proc.new do
@@ -18,7 +18,12 @@ module RademadeAdmin
         end
 
         def full_path_for(image_path)
-          "#{CarrierWave.root}#{image_path}"
+          matches = image_path.match /^https?:\/\/.*?(\/.*)/
+          if matches.nil?
+            "#{CarrierWave.root}#{image_path}"
+          else
+            "#{CarrierWave.root}#{matches[1]}"
+          end
         end
 
       end
