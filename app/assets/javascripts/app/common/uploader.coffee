@@ -21,6 +21,9 @@ class @Uploader extends Backbone.View
       always : @hideLoader
 
   updateUploader : (result) =>
+    console.log(result)
+    console.log(result.file)
+    console.log(result.file.url)
     @$el.find('[data-preview-item]').replaceWith(result.html)
     @$el.find('.upload-holder.hide').removeClass('hide')
     @$hidden.val(result.file.url)
